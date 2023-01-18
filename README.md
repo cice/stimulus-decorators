@@ -27,6 +27,8 @@ There are several decorators:
 
 - [`@Target`](#target_decorator)
 - [`@Targets`](#targets_decorator)
+- [`@Outlet`](#outlet_decorator)
+- [`@Outlets`](#outlets_decorator)
 - [`@Value`](#value_decorator)
 - [`@Class`](#class_decorator)
 - [`@Classes`](#classes_decorator)
@@ -99,6 +101,71 @@ export default class extends Controller {
 
   connect() {
     this.slideTargets.forEach((element, index) => {
+      /* … */
+    });
+  }
+}
+```
+
+### <a name="outlet_decorator"></a> `@Outlet` decorator
+
+Explicitly define outlet properties with types using the `@Outlet` decorator, and it will automatically add them to the `static outlets` array for your Stimulus controller.
+
+```ts
+// hello_controller.ts
+import { Controller } from '@hotwired/stimulus';
+import { Outlet, TypedController } from '@vytant/stimulus-decorators';
+
+@TypedController
+export default class extends Controller {
+  @Outlet outputOutlet!: Controller;
+  @Outlet nameOutlet!: Controller;
+}
+```
+
+Equivalent to:
+
+```js
+// hello_controller.js
+import { Controller } from '@hotwired/stimulus';
+
+export default class extends Controller {
+  static outlets = ['name', 'output'];
+}
+```
+
+### <a name="outlets_decorator"></a> `@Outlets` decorator
+
+To get an array of all matching outlets in scope, use the `@Outlets` decorator.
+
+```ts
+// slider_controller.ts
+import { Controller } from '@hotwired/stimulus';
+import { Outlets, TypedController } from '@vytant/stimulus-decorators';
+
+@TypedController
+export default class extends Controller {
+  @Outlets slideOutlets!: Controller[];
+
+  connect() {
+    this.slideOutlets.forEach((controller, index) => {
+      /* … */
+    });
+  }
+}
+```
+
+Equivalent to:
+
+```js
+// slider_controller.js
+import { Controller } from '@hotwired/stimulus';
+
+export default class extends Controller {
+  static outlets = ['slide'];
+
+  connect() {
+    this.slideOutlets.forEach((controller, index) => {
       /* … */
     });
   }

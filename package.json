@@ -47,7 +47,7 @@
     "ts-jest": "^27.1.4"
   },
   "dependencies": {
-    "@hotwired/stimulus": "^3.0.0",
+    "@hotwired/stimulus": "^3.2.1",
     "reflect-metadata": "^0.1.13"
   }
 }
